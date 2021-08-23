@@ -2,7 +2,7 @@
 {
     class Peca
     {
-        public Possicao Possicao { get; set; }
+        public Posicao Possicao { get; set; }
         public Cor Cor { get; protected set; }
         public int QtdMovimentos { get; protected set; }
         public Tabuleiro Tab { get; protected set; }
@@ -13,6 +13,10 @@
             Cor = cor;
             Tab = tab;
             QtdMovimentos = 0;
+        }
+        public void IncrementarQtdMovimentos()
+        {
+            QtdMovimentos++;
         }
     }
 }

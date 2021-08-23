@@ -12,9 +12,9 @@ namespace xadrez
             Coluna = coluna;
             Linha = linha;
         }
-        public Possicao ToPossicao()
+        public Posicao ToPossicao()
         {
-            return new Possicao(8 - Linha, Coluna - 'a');
+            return new Posicao(8 - Linha, Coluna - 'a');
         }
         public override string ToString()
         {
