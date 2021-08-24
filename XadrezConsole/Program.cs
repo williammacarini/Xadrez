@@ -35,17 +35,11 @@ namespace XadrezConsole
 
                     partida.RealizaJogada(origem, destino);
                 }
-                
-
-                Console.WriteLine(partida.Tab);
             }
             catch (TabuleiroException e)
             {
                 Console.WriteLine(e.Message);
             }
-            /*PosicaoXadrez pos = new PosicaoXadrez('a', 1);
-            Console.WriteLine(pos);
-            Console.WriteLine(pos.ToPossicao());*/
         }
     }
 }

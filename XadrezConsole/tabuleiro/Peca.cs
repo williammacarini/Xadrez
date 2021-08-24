@@ -2,14 +2,14 @@
 {
     abstract class Peca
     {
-        public Posicao Possicao { get; set; }
+        public Posicao Posicao { get; set; }
         public Cor Cor { get; protected set; }
         public int QtdMovimentos { get; protected set; }
         public Tabuleiro Tab { get; protected set; }
 
-        public Peca(Cor cor, Tabuleiro tab)
+        public Peca(Tabuleiro tab, Cor cor)
         {
-            Possicao = null;
+            Posicao = null;
             Tab = tab;
             Cor = cor;
             QtdMovimentos = 0;
@@ -17,6 +17,11 @@
         public void IncrementarQtdMovimentos()
         {
             QtdMovimentos++;
+        }
+
+        public void DecrementarQteMovimentos()
+        {
+            QtdMovimentos--;
         }
         public bool ExisteMovimentosPossiveis()
         {
