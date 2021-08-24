@@ -15,31 +15,42 @@ namespace XadrezConsole
 
                 while (!partida.Termina)
                 {
-                    Console.Clear();
-                    Tela.ImprimirPartida(partida);
+                    try
+                    {
+                        Console.Clear();
+                        Tela.ImprimirPartida(partida);
 
-                    Console.WriteLine();
-                    Console.Write("Origem: ");
-                    Posicao origem = Tela.LerPosicao().ToPossicao();
-                    partida.ValidarPosicaoOrigem(origem);
+                        Console.WriteLine();
+                        Console.Write("Origem: ");
+                        Posicao origem = Tela.LerPosicao().ToPossicao();
+                        partida.ValidarPosicaoOrigem(origem);
 
-                    bool[,] posicaoPossiveis = partida.Tab.Pecass(origem).MovimentosPossiveis();
+                        bool[,] posicaoPossiveis = partida.Tab.Pecass(origem).MovimentosPossiveis();
 
-                    Console.Clear();
-                    Tela.ImprimirTabuleiro(partida.Tab, posicaoPossiveis);
+                        Console.Clear();
+                        Tela.ImprimirTabuleiro(partida.Tab, posicaoPossiveis);
 
-                    Console.WriteLine();
-                    Console.Write("Destino: ");
-                    Posicao destino = Tela.LerPosicao().ToPossicao();
-                    partida.ValidarPosicaoDestino(origem, destino);
+                        Console.WriteLine();
+                        Console.Write("Destino: ");
+                        Posicao destino = Tela.LerPosicao().ToPossicao();
+                        partida.ValidarPosicaoDestino(origem, destino);
 
-                    partida.RealizaJogada(origem, destino);
+                        partida.RealizaJogada(origem, destino);
+                    }
+                    catch (TabuleiroException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
                 }
+                Console.Clear();
+                Tela.ImprimirPartida(partida);
             }
             catch (TabuleiroException e)
             {
                 Console.WriteLine(e.Message);
             }
+            Console.ReadLine();
         }
     }
 }
