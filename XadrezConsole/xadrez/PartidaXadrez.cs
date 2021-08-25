@@ -28,41 +28,44 @@ namespace xadrez
             Capturadas = new HashSet<Peca>();
             ColocarPecas();
         }
-        public Peca ExecutarMovimento(Posicao origem, Posicao destino)
+        public Peca ExecutaMovimento(Posicao origem, Posicao destino)
         {
             Peca p = Tab.RetirarPeca(origem);
             p.IncrementarQtdMovimentos();
             Peca pecaCapturada = Tab.RetirarPeca(destino);
             Tab.ColocarPeca(p, destino);
-            if(pecaCapturada != null)
+            if (pecaCapturada != null)
             {
                 Capturadas.Add(pecaCapturada);
             }
-            //#Jogada especial roque pequeno
-            if(p is Rei && destino.Coluna == origem.Coluna + 2)
+
+            // #jogadaespecial roque pequeno
+            if (p is Rei && destino.Coluna == origem.Coluna + 2)
             {
                 Posicao origemT = new Posicao(origem.Linha, origem.Coluna + 3);
-                Posicao destinoT = new Posicao(destino.Linha, destino.Coluna + 1);
-                Peca t = Tab.RetirarPeca(origemT);
-                t.IncrementarQtdMovimentos();
-                Tab.ColocarPeca(t, destinoT);
+                Posicao destinoT = new Posicao(origem.Linha, origem.Coluna + 1);
+                Peca T = Tab.RetirarPeca(origemT);
+                T.IncrementarQtdMovimentos();
+                Tab.ColocarPeca(T, destinoT);
             }
-            //#Jogada especial roque grande
+
+            // #jogadaespecial roque grande
             if (p is Rei && destino.Coluna == origem.Coluna - 2)
             {
                 Posicao origemT = new Posicao(origem.Linha, origem.Coluna - 4);
-                Posicao destinoT = new Posicao(destino.Linha, destino.Coluna - 1);
-                Peca t = Tab.RetirarPeca(origemT);
-                t.IncrementarQtdMovimentos();
-                Tab.ColocarPeca(t, destinoT);
+                Posicao destinoT = new Posicao(origem.Linha, origem.Coluna - 1);
+                Peca T = Tab.RetirarPeca(origemT);
+                T.IncrementarQtdMovimentos();
+                Tab.ColocarPeca(T, destinoT);
             }
-            //#Jogada especial En Passant
-            if(p is Peao)
+
+            // #jogadaespecial en passant
+            if (p is Peao)
             {
-                if(origem.Coluna != destino.Coluna && pecaCapturada == null)
+                if (origem.Coluna != destino.Coluna && pecaCapturada == null)
                 {
                     Posicao posP;
-                    if(p.Cor == Cor.Branco)
+                    if (p.Cor == Cor.Branco)
                     {
                         posP = new Posicao(destino.Linha + 1, destino.Coluna);
                     }
@@ -74,6 +77,7 @@ namespace xadrez
                     Capturadas.Add(pecaCapturada);
                 }
             }
+
             return pecaCapturada;
         }
         public void DefazMovimento(Posicao origem, Posicao destino, Peca pecaCapturada)
@@ -125,7 +129,8 @@ namespace xadrez
         }
         public void RealizaJogada(Posicao origem, Posicao destino)
         {
-            Peca pecaCapturada = ExecutarMovimento(origem, destino);
+            Peca pecaCapturada = ExecutaMovimento(origem, destino);
+
             if (EstaEmCheque(JogadorAtual))
             {
                 DefazMovimento(origem, destino, pecaCapturada);
@@ -134,10 +139,10 @@ namespace xadrez
 
             Peca p = Tab.Pecass(destino);
 
-            //#Jogada especial promocao
-            if(p is Peao)
+            // #jogadaespecial promocao
+            if (p is Peao)
             {
-                if((p.Cor == Cor.Branco && destino.Linha == 0) || (p.Cor == Cor.Preto && destino.Linha == 7))
+                if ((p.Cor == Cor.Branco && destino.Linha == 0) || (p.Cor == Cor.Preto && destino.Linha == 7))
                 {
                     p = Tab.RetirarPeca(destino);
                     PecasJogo.Remove(p);
@@ -155,6 +160,7 @@ namespace xadrez
             {
                 Xeque = false;
             }
+
             if (TesteXequeMate(Adversario(JogadorAtual)))
             {
                 Termina = true;
@@ -165,8 +171,8 @@ namespace xadrez
                 MudaJogador();
             }
 
-            //#Jogada especial En Passant
-            if(p is Peao && (destino.Linha == origem.Linha - 2 || destino.Linha == origem.Linha + 2))
+            // #jogadaespecial en passant
+            if (p is Peao && (destino.Linha == origem.Linha - 2 || destino.Linha == origem.Linha + 2))
             {
                 VulneravelEnPassant = p;
             }
@@ -174,6 +180,7 @@ namespace xadrez
             {
                 VulneravelEnPassant = null;
             }
+
         }
         public void ValidarPosicaoOrigem(Posicao pos)
         {
@@ -289,7 +296,7 @@ namespace xadrez
                         {
                             Posicao origem = x.Posicao;
                             Posicao destino = new Posicao(i, j);
-                            Peca pecaCaptura = ExecutarMovimento(origem, destino);
+                            Peca pecaCaptura = ExecutaMovimento(origem, destino);
                             bool testeXeque = EstaEmCheque(cor);
                             DefazMovimento(origem, destino, pecaCaptura);
                             if (!testeXeque)
