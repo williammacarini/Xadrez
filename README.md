@@ -1,6 +1,6 @@
 # Projeto de Xadrez
 
-	Projeto consiste em um jogo de xadrez, onde as informações são exibidas diretamente no console.
+Projeto consiste em um jogo de xadrez, onde as informações são exibidas diretamente no console.
 
 ## Informações do jogo
 
