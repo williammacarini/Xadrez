@@ -1,12 +1,10 @@
-﻿using tabuleiro;
+﻿using Tabuleiro;
 
-namespace xadrez
+namespace Xadrez
 {
-
-    class Bispo : Peca
+    public class Bispo : Peca
     {
-
-        public Bispo(Tabuleiro Tab, Cor Cor) : base(Tab, Cor)
+        public Bispo(Tabuleiro.Tabuleiro tab, Cor cor) : base(tab, cor)
         {
         }
 
@@ -15,24 +13,24 @@ namespace xadrez
             return "B";
         }
 
-        private bool podeMover(Posicao pos)
+        private bool PodeMover(Posicao pos)
         {
-            Peca p = Tab.Pecass(pos);
+            Peca p = Tabuleiro.Peca(pos);
             return p == null || p.Cor != Cor;
         }
 
         public override bool[,] MovimentosPossiveis()
         {
-            bool[,] mat = new bool[Tab.Linhas, Tab.Colunas];
+            bool[,] mat = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
 
-            Posicao pos = new Posicao(0, 0);
+            Posicao pos = new(0, 0);
 
             // NO
             pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 1);
-            while (Tab.PosicaoValida(pos) && podeMover(pos))
+            while (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
-                if (Tab.Pecass(pos) != null && Tab.Pecass(pos).Cor != Cor)
+                if (Tabuleiro.Peca(pos) != null && Tabuleiro.Peca(pos).Cor != Cor)
                 {
                     break;
                 }
@@ -41,10 +39,10 @@ namespace xadrez
 
             // NE
             pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 1);
-            while (Tab.PosicaoValida(pos) && podeMover(pos))
+            while (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
-                if (Tab.Pecass(pos) != null && Tab.Pecass(pos).Cor != Cor)
+                if (Tabuleiro.Peca(pos) != null && Tabuleiro.Peca(pos).Cor != Cor)
                 {
                     break;
                 }
@@ -53,10 +51,10 @@ namespace xadrez
 
             // SE
             pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna + 1);
-            while (Tab.PosicaoValida(pos) && podeMover(pos))
+            while (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
-                if (Tab.Pecass(pos) != null && Tab.Pecass(pos).Cor != Cor)
+                if (Tabuleiro.Peca(pos) != null && Tabuleiro.Peca(pos).Cor != Cor)
                 {
                     break;
                 }
@@ -65,16 +63,15 @@ namespace xadrez
 
             // SO
             pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 1);
-            while (Tab.PosicaoValida(pos) && podeMover(pos))
+            while (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
-                if (Tab.Pecass(pos) != null && Tab.Pecass(pos).Cor != Cor)
+                if (Tabuleiro.Peca(pos) != null && Tabuleiro.Peca(pos).Cor != Cor)
                 {
                     break;
                 }
                 pos.DefinirValores(pos.Linha + 1, pos.Coluna - 1);
             }
-
             return mat;
         }
     }

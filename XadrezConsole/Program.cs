@@ -1,21 +1,18 @@
 ﻿using System;
-using tabuleiro;
-using xadrez;
+using Tabuleiro;
+using Xadrez;
 
-namespace XadrezConsole
+namespace Xadrez_console
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-
             try
             {
-                PartidaXadrez partida = new PartidaXadrez();
-
-                while (!partida.Termina)
+                PartidaXadrez partida = new();
+                while (!partida.Terminada)
                 {
-
                     try
                     {
                         Console.Clear();
@@ -23,18 +20,18 @@ namespace XadrezConsole
 
                         Console.WriteLine();
                         Console.Write("Origem: ");
-                        Posicao origem = Tela.LerPosicao().ToPossicao();
-                        partida.ValidarPosicaoOrigem(origem);
+                        Posicao origem = Tela.LerPosicaoXadrez().ParaPosicao();
+                        partida.ValidarPosicaoDeOrigem(origem);
 
-                        bool[,] posicoesPossiveis = partida.Tab.Pecass(origem).MovimentosPossiveis();
+                        bool[,] posicoesPossiveis = partida.Tabuleiro.Peca(origem).MovimentosPossiveis();
 
                         Console.Clear();
-                        Tela.ImprimirTabuleiro(partida.Tab, posicoesPossiveis);
+                        Tela.ImprimirTabuleiro(partida.Tabuleiro, posicoesPossiveis);
 
                         Console.WriteLine();
                         Console.Write("Destino: ");
-                        Posicao destino = Tela.LerPosicao().ToPossicao();
-                        partida.ValidarPosicaoDestino(origem, destino);
+                        Posicao destino = Tela.LerPosicaoXadrez().ParaPosicao();
+                        partida.ValidarPosicaoDeDestino(origem, destino);
 
                         partida.RealizaJogada(origem, destino);
                     }
@@ -51,7 +48,6 @@ namespace XadrezConsole
             {
                 Console.WriteLine(e.Message);
             }
-
             Console.ReadLine();
         }
     }
