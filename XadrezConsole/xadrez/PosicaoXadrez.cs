@@ -1,8 +1,8 @@
-﻿using tabuleiro;
+﻿using Tabuleiro;
 
-namespace xadrez
+namespace Xadrez
 {
-    class PosicaoXadrez
+    public class PosicaoXadrez
     {
         public char Coluna { get; set; }
         public int Linha { get; set; }
@@ -12,7 +12,7 @@ namespace xadrez
             Coluna = coluna;
             Linha = linha;
         }
-        public Posicao ToPossicao()
+        public Posicao ParaPosicao()
         {
             return new Posicao(8 - Linha, Coluna - 'a');
         }

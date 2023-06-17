@@ -1,11 +1,11 @@
-﻿namespace tabuleiro
+﻿namespace Tabuleiro
 {
-    class Tabuleiro
+    public class Tabuleiro
     {
         public int Linhas { get; set; }
         public int Colunas { get; set; }
 
-        private Peca[,] Pecas;
+        private readonly Peca[,] Pecas;
 
         public Tabuleiro(int linhas, int colunas)
         {
@@ -13,18 +13,18 @@
             Colunas = colunas;
             Pecas = new Peca[linhas, colunas];
         }
-        public Peca Pecass(int linhas, int colunas)
+        public Peca Peca(int linhas, int colunas)
         {
             return Pecas[linhas, colunas];
         }
-        public Peca Pecass(Posicao pos)
+        public Peca Peca(Posicao pos)
         {
             return Pecas[pos.Linha, pos.Coluna];
         }
         public bool ExistePeca(Posicao pos)
         {
             ValidarPosicao(pos);
-            return Pecass(pos) != null;
+            return Peca(pos) != null;
         }
         public void ColocarPeca(Peca p, Posicao pos)
         {
@@ -37,13 +37,13 @@
         }
         public Peca RetirarPeca(Posicao pos)
         {
-            if(Pecass(pos) == null)
+            if(Peca(pos) == null)
             {
                 return null;
             }
-            Peca aux = Pecass(pos);
+            Peca aux = Peca(pos);
             aux.Posicao = null;
-            Pecas[pos.Linha, pos.Linha] = null;
+            Pecas[pos.Coluna, pos.Linha] = null;
             return aux;
         }
         public bool PosicaoValida(Posicao pos)

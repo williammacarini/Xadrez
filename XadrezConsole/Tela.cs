@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using tabuleiro;
-using xadrez;
+using Tabuleiro;
+using Xadrez;
 
 namespace XadrezConsole
 {
-    class Tela
+    public class Tela
     {
         public static void ImprimirPartida(PartidaXadrez partida)
-        {
+        { 
             ImprimirTabuleiro(partida.Tab);
             Console.WriteLine();
             ImprimirPecasCapturadas(partida);
@@ -50,7 +50,7 @@ namespace XadrezConsole
             }
             Console.Write("]");
         }
-        public static void ImprimirTabuleiro(Tabuleiro tab)
+        public static void ImprimirTabuleiro(Tabuleiro.Tabuleiro tab)
         {
 
             for (int i = 0; i < tab.Linhas; i++)
@@ -58,13 +58,13 @@ namespace XadrezConsole
                 Console.Write(8 - i + " ");
                 for (int j = 0; j < tab.Colunas; j++)
                 {
-                    ImprimirPeca(tab.Pecass(i, j));
+                    ImprimirPeca(tab.Peca(i, j));
                 }
                 Console.WriteLine();
             }
             Console.WriteLine("  a b c d e f g h");
         }
-        public static void ImprimirTabuleiro(Tabuleiro tab, bool[,] posicoePossiveis)
+        public static void ImprimirTabuleiro(Tabuleiro.Tabuleiro tab, bool[,] posicoePossiveis)
         {
 
             ConsoleColor fundoOriginal = Console.BackgroundColor;
@@ -83,7 +83,7 @@ namespace XadrezConsole
                     {
                         Console.BackgroundColor = fundoOriginal;
                     }
-                    ImprimirPeca(tab.Pecass(i, j));
+                    ImprimirPeca(tab.Peca(i, j));
                     Console.BackgroundColor = fundoOriginal;
                 }
                 Console.WriteLine();

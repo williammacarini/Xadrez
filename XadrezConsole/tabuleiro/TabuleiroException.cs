@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace tabuleiro
+namespace Tabuleiro
 {
-    class TabuleiroException : Exception
+    public class TabuleiroException : Exception
     {
         public TabuleiroException(string msg) : base(msg)
         {
