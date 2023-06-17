@@ -2,7 +2,7 @@
 using Tabuleiro;
 using Xadrez;
 
-namespace XadrezConsole
+namespace Xadrez_console
 {
     public class Program
     {
@@ -11,8 +11,7 @@ namespace XadrezConsole
             try
             {
                 PartidaXadrez partida = new();
-
-                while (!partida.Termina)
+                while (!partida.Terminada)
                 {
                     try
                     {
@@ -21,18 +20,18 @@ namespace XadrezConsole
 
                         Console.WriteLine();
                         Console.Write("Origem: ");
-                        Posicao origem = Tela.LerPosicao().ParaPosicao();
-                        partida.ValidarPosicaoOrigem(origem);
+                        Posicao origem = Tela.LerPosicaoXadrez().ParaPosicao();
+                        partida.ValidarPosicaoDeOrigem(origem);
 
-                        bool[,] posicoesPossiveis = partida.Tab.Peca(origem).MovimentosPossiveis();
+                        bool[,] posicoesPossiveis = partida.Tabuleiro.Peca(origem).MovimentosPossiveis();
 
                         Console.Clear();
-                        Tela.ImprimirTabuleiro(partida.Tab, posicoesPossiveis);
+                        Tela.ImprimirTabuleiro(partida.Tabuleiro, posicoesPossiveis);
 
                         Console.WriteLine();
                         Console.Write("Destino: ");
-                        Posicao destino = Tela.LerPosicao().ParaPosicao();
-                        partida.ValidarPosicaoDestino(origem, destino);
+                        Posicao destino = Tela.LerPosicaoXadrez().ParaPosicao();
+                        partida.ValidarPosicaoDeDestino(origem, destino);
 
                         partida.RealizaJogada(origem, destino);
                     }

@@ -4,101 +4,107 @@ namespace Xadrez
 {
     public class Rei : Peca
     {
-        private readonly PartidaXadrez Partida;
+        private readonly PartidaXadrez _partida;
+
         public Rei(Tabuleiro.Tabuleiro tab, Cor cor, PartidaXadrez partida) : base(tab, cor)
         {
-            Partida = partida;
+            _partida = partida;
         }
+
         public override string ToString()
         {
             return "R";
         }
+
         private bool PodeMover(Posicao pos)
         {
-            Peca p = Tab.Peca(pos);
+            Peca p = Tabuleiro.Peca(pos);
             return p == null || p.Cor != Cor;
         }
+
         private bool TesteTorreParaRoque(Posicao pos)
         {
-            Peca p = Tab.Peca(pos);
-            return p is Torre && p.Cor == Cor && QtdMovimentos == 0;
+            Peca p = Tabuleiro.Peca(pos);
+            return p is Torre && p.Cor == Cor && p.QuantidadeMovimentos == 0;
         }
+
         public override bool[,] MovimentosPossiveis()
         {
-            bool[,] mat = new bool[Tab.Linhas, Tab.Colunas];
+            bool[,] mat = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
 
             Posicao pos = new(0, 0);
 
-            //Acima
-            pos.DefinirValores(pos.Linha - 1, pos.Coluna);
-            if (Tab.PosicaoValida(pos) && PodeMover(pos))
+            // acima
+            pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
+            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
             }
-            //Ne
-            pos.DefinirValores(pos.Linha - 1, pos.Coluna + 1);
-            if (Tab.PosicaoValida(pos) && PodeMover(pos))
+            // ne
+            pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 1);
+            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
             }
-            //Direita
-            pos.DefinirValores(pos.Linha, pos.Coluna + 1);
-            if (Tab.PosicaoValida(pos) && PodeMover(pos))
+            // direita
+            pos.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
+            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
             }
-            //Se
-            pos.DefinirValores(pos.Linha + 1, pos.Coluna + 1);
-            if (Tab.PosicaoValida(pos) && PodeMover(pos))
+            // se
+            pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna + 1);
+            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
             }
-            //Abaixo
-            pos.DefinirValores(pos.Linha + 1, pos.Coluna);
-            if (Tab.PosicaoValida(pos) && PodeMover(pos))
+            // abaixo
+            pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
+            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
             }
-            //So
-            pos.DefinirValores(pos.Linha + 1, pos.Coluna - 1);
-            if (Tab.PosicaoValida(pos) && PodeMover(pos))
+            // so
+            pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 1);
+            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
             }
-            //Esquerda
-            pos.DefinirValores(pos.Linha, pos.Coluna - 1);
-            if (Tab.PosicaoValida(pos) && PodeMover(pos))
+            // esquerda
+            pos.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
+            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
             }
-            //No
-            pos.DefinirValores(pos.Linha - 1, pos.Coluna - 1);
-            if (Tab.PosicaoValida(pos) && PodeMover(pos))
+            // no
+            pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 1);
+            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
             }
-            //#Jogada especial roque
-            if(QtdMovimentos==0 && !Partida.Xeque)
+
+            // #jogadaespecial roque
+            if (QuantidadeMovimentos == 0 && !_partida.Xeque)
             {
-                //#Jogada especial roque pequeno
-                Posicao PosT1 = new(Posicao.Linha, Posicao.Coluna + 3);
-                if (TesteTorreParaRoque(PosT1))
+                // #jogadaespecial roque pequeno
+                Posicao posT1 = new(Posicao.Linha, Posicao.Coluna + 3);
+                if (TesteTorreParaRoque(posT1))
                 {
                     Posicao p1 = new(Posicao.Linha, Posicao.Coluna + 1);
                     Posicao p2 = new(Posicao.Linha, Posicao.Coluna + 2);
-                    if(Tab.Peca(p1) == null && Tab.Peca(p2) == null)
+                    if (Tabuleiro.Peca(p1) == null && Tabuleiro.Peca(p2) == null)
                     {
                         mat[Posicao.Linha, Posicao.Coluna + 2] = true;
                     }
                 }
-                //#Jogada especial roque grande
-                Posicao PosT2 = new(Posicao.Linha, Posicao.Coluna - 4);
-                if (TesteTorreParaRoque(PosT2))
+                // #jogadaespecial roque grande
+                Posicao posT2 = new(Posicao.Linha, Posicao.Coluna - 4);
+                if (TesteTorreParaRoque(posT2))
                 {
                     Posicao p1 = new(Posicao.Linha, Posicao.Coluna - 1);
                     Posicao p2 = new(Posicao.Linha, Posicao.Coluna - 2);
                     Posicao p3 = new(Posicao.Linha, Posicao.Coluna - 3);
-                    if (Tab.Peca(p1) == null && Tab.Peca(p2) == null && Tab.Peca(p3) == null)
+                    if (Tabuleiro.Peca(p1) == null && Tabuleiro.Peca(p2) == null && Tabuleiro.Peca(p3) == null)
                     {
                         mat[Posicao.Linha, Posicao.Coluna - 2] = true;
                     }
@@ -108,4 +114,3 @@ namespace Xadrez
         }
     }
 }
-

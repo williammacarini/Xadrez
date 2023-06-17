@@ -4,67 +4,69 @@ namespace Xadrez
 {
     public class Torre : Peca
     {
-        public Torre(Tabuleiro.Tabuleiro tab, Cor cor) : base(tab, cor)
+        public Torre(Tabuleiro.Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor)
         {
-
         }
+
         public override string ToString()
         {
             return "T";
         }
+
         private bool PodeMover(Posicao pos)
         {
-            Peca p = Tab.Peca(pos);
+            Peca p = Tabuleiro.Peca(pos);
             return p == null || p.Cor != Cor;
         }
+
         public override bool[,] MovimentosPossiveis()
         {
-            bool[,] mat = new bool[Tab.Linhas, Tab.Colunas];
+            bool[,] mat = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
 
             Posicao pos = new(0, 0);
 
-            //Acima
-            pos.DefinirValores(pos.Linha - 1, pos.Coluna);
-            while (Tab.PosicaoValida(pos) && PodeMover(pos))
+            // acima
+            pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
+            while (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
-                if (Tab.Peca(pos) != null && Tab.Peca(pos).Cor != Cor)
+                if (Tabuleiro.Peca(pos) != null && Tabuleiro.Peca(pos).Cor != Cor)
                 {
                     break;
                 }
                 pos.Linha--;
             }
 
-            //Abaixo
-            pos.DefinirValores(pos.Linha + 1, pos.Coluna);
-            while (Tab.PosicaoValida(pos) && PodeMover(pos))
+            // abaixo
+            pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
+            while (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
-                if (Tab.Peca(pos) != null && Tab.Peca(pos).Cor != Cor)
+                if (Tabuleiro.Peca(pos) != null && Tabuleiro.Peca(pos).Cor != Cor)
                 {
                     break;
                 }
                 pos.Linha++;
             }
 
-            //Direita
-            pos.DefinirValores(pos.Linha, pos.Coluna + 1);
-            while (Tab.PosicaoValida(pos) && PodeMover(pos))
+            // direita
+            pos.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
+            while (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
-                if (Tab.Peca(pos) != null && Tab.Peca(pos).Cor != Cor)
+                if (Tabuleiro.Peca(pos) != null && Tabuleiro.Peca(pos).Cor != Cor)
                 {
                     break;
                 }
                 pos.Coluna++;
             }
 
-            //Esquerda
-            pos.DefinirValores(pos.Linha, pos.Coluna - 1);
-            while (Tab.PosicaoValida(pos) && PodeMover(pos))
+            // esquerda
+            pos.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
+            while (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
-                if (Tab.Peca(pos) != null && Tab.Peca(pos).Cor != Cor)
+                if (Tabuleiro.Peca(pos) != null && Tabuleiro.Peca(pos).Cor != Cor)
                 {
                     break;
                 }

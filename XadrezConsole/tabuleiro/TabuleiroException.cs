@@ -6,7 +6,6 @@ namespace Tabuleiro
     {
         public TabuleiroException(string msg) : base(msg)
         {
-
         }
     }
 }
