@@ -1,8 +1,9 @@
 # Projeto de Xadrez
 
-Projeto consiste em um jogo de xadrez, onde as informações são exibidas diretamente no console.
+	Projeto consiste em um jogo de xadrez, onde as informações são exibidas diretamente no console.
 
-# Informações do jogo:
+## Informações do jogo
+
    - 1° Basicamente é exebido no console uma matriz de "a" até "h" para as colunas e de "1" ate "8" para as lihas.
    - 2° Sempre as peças brancas iniciam o jogo.
    - 3° Ao iniciar o jogo, deve ser informado a "Origem" para selecionar a peça que deseja mover. Por exemplo: "a2".
